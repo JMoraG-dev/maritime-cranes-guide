@@ -1,13 +1,1056 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Guía de Grúas Portuarias</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Grúas en Terminales Marítimas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30,60,114,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #5a6c7d;
+            font-size: 1.3rem;
+            animation: fadeInUp 1s ease 0.3s both;
+            font-weight: 400;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 2rem 1rem;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease 0.6s both;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1e3c72;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(30, 60, 114, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .nav-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3);
+            border-color: #1e3c72;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .crane-section {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: slideIn 0.6s ease;
+        }
+
+        .crane-section.active {
+            display: block;
+        }
+
+        .crane-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .crane-title {
+            font-size: 2.2rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .crane-subtitle {
+            color: #5a6c7d;
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .crane-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0;
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            border-radius: 2px;
+            animation: expandWidth 1s ease;
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 120px; }
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8ecf1 100%);
+            border-radius: 12px;
+            border-left: 4px solid #2a5298;
+            transition: all 0.3s ease;
+        }
+
+        .spec-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(30, 60, 114, 0.15);
+        }
+
+        .spec-label {
+            font-weight: 700;
+            color: #1e3c72;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            color: #444;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .gallery {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e8ecf1;
+        }
+
+        .gallery-title {
+            font-size: 1.4rem;
+            color: #1e3c72;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #2a5298, #1e3c72);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item::before {
+            content: '⚓';
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.15;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.4);
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin: 1.5rem 0;
+            text-align: justify;
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: #f0f4f8;
+            color: #1e3c72;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.2rem;
+        }
+
+        .location-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(30, 60, 114, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid #2a5298;
+        }
+
+        .location-title {
+            font-weight: 700;
+            color: #1e3c72;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .crane-title { font-size: 1.8rem; }
+            .specs-grid { grid-template-columns: 1fr; }
+            .navigation { padding: 1.5rem 0.5rem; }
+            .nav-btn { font-size: 0.85rem; padding: 0.7rem 1.2rem; }
+        }
+
+        .cargo-types {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .cargo-types-title {
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+    </style>
 </head>
 <body>
-  <h1>Guía de Grúas Portuarias</h1>
-  <p>Contenido en preparación.</p>
-  <script src="scripts.js"></script>
+    <div class="header">
+        <h1>Tipos de Grúas en Terminales Marítimas</h1>
+        <p class="subtitle">Equipamiento Especializado para Operaciones Portuarias</p>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn active" onclick="showCrane('sts')">STS (Ship-to-Shore)</button>
+        <button class="nav-btn" onclick="showCrane('mobile')">Grúa Móvil Portuaria</button>
+        <button class="nav-btn" onclick="showCrane('bulk')">Grúas para Granel</button>
+        <button class="nav-btn" onclick="showCrane('rtg')">RTG (Patio)</button>
+        <button class="nav-btn" onclick="showCrane('rmg')">RMG (Sobre Rieles)</button>
+        <button class="nav-btn" onclick="showCrane('reach')">Reach Stacker</button>
+        <button class="nav-btn" onclick="showCrane('bridge')">Grúa Puente</button>
+        <button class="nav-btn" onclick="showCrane('floating')">Grúa Flotante</button>
+        <button class="nav-btn" onclick="showCrane('telescopic')">Grúas Auxiliares</button>
+        <button class="nav-btn" onclick="showCrane('luffing')">Brazo Nivelado</button>
+        <button class="nav-btn" onclick="showCrane('sidelifter')">Sidelifter</button>
+    </div>
+
+    <!-- STS (Ship-to-Shore) -->
+    <div id="sts" class="crane-section active">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas Portacontenedores de Muelle</h2>
+            <p class="crane-subtitle">Ship-to-Shore (STS)</p>
+            
+            <p class="description">
+                Las grúas portacontenedores de muelle son grandes grúas pórtico fijas instaladas en el frente de muelle. 
+                Están diseñadas específicamente para cargar y descargar contenedores entre los buques portacontenedores 
+                y la terminal terrestre de forma rápida y precisa. Son las grúas más emblemáticas de los puertos de 
+                contenedores modernos y resultan indispensables en puertos comerciales de gran escala.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Capacidad de Carga</div>
+                    <div class="spec-value">40-70 toneladas bajo spreader (hasta 100+ t en configuraciones especiales)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Estructura</div>
+                    <div class="spec-value">Pórtico de gran altura con brazo horizontal (pluma) extensible</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Movilidad</div>
+                    <div class="spec-value">Desplazamiento sobre rieles paralelos al muelle</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Operación</div>
+                    <div class="spec-value">Cabina elevada con vista al buque o control remoto en modelos modernos</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Exclusivamente contenedores estándar ISO (20'/40') llenos o vacíos, y ocasionalmente cargas especiales montadas en plataformas de contenedor.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Muelle principal, a lo largo del borde de atraque de buques portacontenedores.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Reach Stacker Kalmar</div>
+                    <div class="gallery-item">Brazo telescópico</div>
+                    <div class="gallery-item">Apilado en segunda fila</div>
+                    <div class="gallery-item">Operación en depósito</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grúa Puente -->
+    <div id="bridge" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas Puente de Almacén</h2>
+            <p class="crane-subtitle">Grúas Interiores</p>
+            
+            <p class="description">
+                Las grúas puente son grúas instaladas en estructuras fijas dentro de naves cubiertas o almacenes. 
+                Consisten en un puente horizontal que se desplaza sobre rieles elevados en la estructura del techo, 
+                cubriendo el ancho de la nave, con un carro (polipasto) que se mueve a lo largo del puente. 
+                En puertos, se utilizan en almacenes de mercancía pesada, talleres de mantenimiento o depósitos cubiertos.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Movimiento</div>
+                    <div class="spec-value">Tres ejes: longitudinal, transversal y vertical</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Capacidad</div>
+                    <div class="spec-value">Desde pocas toneladas hasta decenas de toneladas</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Control</div>
+                    <div class="spec-value">Desde cabina o controles colgantes/remotos</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Variante</div>
+                    <div class="spec-value">Grúa semipórtico con apoyo en suelo</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Cargas generales o piezas pesadas en entornos interiores: bobinas de acero, bloques de motor, partes de grúas. También contenedores vacíos o ligeros bajo techo.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Almacenes cerrados, hangares o talleres dentro del puerto. Cada grúa puente cubre una nave o sección específica.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Grúa puente en almacén</div>
+                    <div class="gallery-item">Sistema de polipasto</div>
+                    <div class="gallery-item">Rieles elevados</div>
+                    <div class="gallery-item">Grúa semipórtico</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grúa Flotante -->
+    <div id="floating" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas Flotantes</h2>
+            <p class="crane-subtitle">Buques Grúa</p>
+            
+            <p class="description">
+                Las grúas flotantes son grúas de alto tonelaje instaladas sobre plataformas flotantes – típicamente barcazas 
+                o buques especiales. Funcionan como "puertos móviles" y se desplazan donde se requiera elevación en el ámbito 
+                portuario o fuera de él. Se utilizan en operaciones offshore o en puertos sin infraestructura fija, asistiendo 
+                en carga/descarga de buques fondeados, proyectos marítimos o rescates.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Capacidad</div>
+                    <div class="spec-value">Cientos hasta miles de toneladas</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Tipos</div>
+                    <div class="spec-value">"Sheerlegs" con plumas de celosía o grúas giratorias</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Independencia</div>
+                    <div class="spec-value">Operación donde no hay grúas terrestres</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Estabilidad</div>
+                    <div class="spec-value">Sistema de lastre, límites de oleaje y viento</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Cualquier carga pesada o de gran dimensión: contenedores, maquinaria, módulos offshore, estructuras completas, torres eólicas, incluso rescate de barcos hundidos.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Aguas del puerto o cercanías. Pueden trabajar en alta mar, operaciones de barcaza entre buques, o en astilleros para montar bloques de buques.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Grúa flotante sheerleg</div>
+                    <div class="gallery-item">Operación offshore</div>
+                    <div class="gallery-item">Salvamento naval</div>
+                    <div class="gallery-item">Montaje de estructuras</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grúas Auxiliares -->
+    <div id="telescopic" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas Telescópicas y de Pluma Articulada</h2>
+            <p class="crane-subtitle">Grúas Auxiliares</p>
+            
+            <p class="description">
+                En el entorno portuario existen grúas auxiliares de menor tamaño, empleadas para tareas complementarias 
+                de mantenimiento, montaje o servicios en áreas específicas. Incluyen grúas telescópicas móviles 
+                (similares a camiones grúa) y grúas de pluma articulada tipo brazo hidráulico. Su principal función 
+                es brindar apoyo en maniobras especializadas, reparaciones o manejo de cargas puntuales.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Tipos</div>
+                    <div class="spec-value">Telescópicas móviles y pluma articulada (knuckle-boom)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Capacidad</div>
+                    <div class="spec-value">Pocas toneladas hasta decenas de toneladas</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Características</div>
+                    <div class="spec-value">Giro 360°, control remoto, gran maniobrabilidad</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Ventajas</div>
+                    <div class="spec-value">Precisión en espacios reducidos, plegado compacto</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Maquinaria portuaria, repuestos, vehículos, cargas irregulares. También embarcaciones pequeñas, contenedores vacíos en áreas de reparación, o asistencia en carga de proyecto.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Zonas interiores del puerto, muelles secundarios o talleres. Se desplazan según necesidad para mantenimiento o cargas especiales.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Camión grúa telescópica</div>
+                    <div class="gallery-item">Grúa knuckle-boom</div>
+                    <div class="gallery-item">Mantenimiento de STS</div>
+                    <div class="gallery-item">Carga de proyecto</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grúa de Brazo Nivelado -->
+    <div id="luffing" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas de Brazo Nivelado</h2>
+            <p class="crane-subtitle">Level-luffing Cranes</p>
+            
+            <p class="description">
+                Las grúas de brazo nivelado son un tipo de grúa con pluma articulada diseñada para mantener el gancho 
+                a altura constante al variar el alcance. Tradicionalmente comunes en puertos y astilleros para izar 
+                cargas pesadas en espacios limitados. Su brazo puede elevarse o abatirse en un ángulo pronunciado 
+                sin cambiar significativamente la altura vertical de la carga, permitiendo sortear obstáculos cercanos.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Sistema</div>
+                    <div class="spec-value">Paralelogramo o tirantes para mantener aparejo nivelado</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Estructura</div>
+                    <div class="spec-value">Fija o sobre riel, torre metálica con contrapeso</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Precisión</div>
+                    <div class="spec-value">Movimientos precisos en vertical con espacio reducido</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Operación</div>
+                    <div class="spec-value">Requiere operadores altamente capacitados</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Cargas pesadas que requieren posicionamiento delicado: secciones de buques, componentes industriales, cargas de proyecto. También tareas auxiliares como limpieza de cascos.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Astilleros y muelles con espacio restringido, esquinas de puerto o muelles antiguos. Zonas de construcción naval o áreas con altura limitada.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Grúa luffing clásica</div>
+                    <div class="gallery-item">Sistema de pluma</div>
+                    <div class="gallery-item">Operación en astillero</div>
+                    <div class="gallery-item">Manejo de cargas pesadas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidelifter -->
+    <div id="sidelifter" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Sidelifter</h2>
+            <p class="crane-subtitle">Grúa Lateral para Contenedores</p>
+            
+            <p class="description">
+                El sidelifter es un equipo especial de transporte intermodal que incorpora grúas laterales montadas 
+                en un camión o remolque. Su función es cargar y descargar contenedores por sí mismo, recogiendo el 
+                contenedor directamente desde el suelo o desde otro chasis mediante sus brazos hidráulicos laterales. 
+                Permite transferir contenedores entre camiones, suelo y ferrocarril sin necesidad de una grúa fija.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Capacidad</div>
+                    <div class="spec-value">30-40 toneladas (contenedor lleno de 40')</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Sistema</div>
+                    <div class="spec-value">Dos brazos de grúa articulados en extremos</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Movilidad</div>
+                    <div class="spec-value">Completamente móvil, circula por carretera</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Control</div>
+                    <div class="spec-value">Remoto o panel fijo, con estabilizadores</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Contenedores exclusivamente (principalmente de 20' y 40' estándar). No se utiliza para otras cargas fuera de formato contenedor ISO.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Áreas intermodales y de transferencia dentro y fuera del puerto. Zona de intercambio camión-tren, o para entregar contenedores directamente en patios de clientes.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Sidelifter en operación</div>
+                    <div class="gallery-item">Carga lateral</div>
+                    <div class="gallery-item">Transferencia intermodal</div>
+                    <div class="gallery-item">Brazos hidráulicos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showCrane(craneId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.crane-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Quitar clase active de todos los botones
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Mostrar la sección seleccionada
+            document.getElementById(craneId).classList.add('active');
+            
+            // Activar el botón correspondiente
+            event.target.classList.add('active');
+            
+            // Scroll suave hacia arriba
+            window.scrollTo({
+                top: 200,
+                behavior: 'smooth'
+            });
+        }
+
+        // Animación de entrada para las tarjetas de especificaciones
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease both';
+                    }, index * 100);
+                }
+            });
+        });
+
+        // Observar elementos cuando se carga la página
+        document.addEventListener('DOMContentLoaded', () => {
+            const specItems = document.querySelectorAll('.spec-item');
+            specItems.forEach(item => observer.observe(item));
+        });
+
+        // Efecto de click en galería
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('gallery-item')) {
+                e.target.style.animation = 'none';
+                setTimeout(() => {
+                    e.target.style.animation = 'float 3s ease-in-out infinite';
+                }, 10);
+                
+                // Efecto de onda
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                ripple.style.background = 'rgba(255,255,255,0.6)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                
+                e.target.style.position = 'relative';
+                e.target.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            }
+        });
+
+        // Añadir animación de ripple
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    width: 200px;
+                    height: 200px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
-</html>
+</html> Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Grúa STS en operación</div>
+                    <div class="gallery-item">Vista del sistema pórtico</div>
+                    <div class="gallery-item">Cabina de operador</div>
+                    <div class="gallery-item">Spreader automático</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grúa Móvil Portuaria -->
+    <div id="mobile" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas Móviles Portuarias</h2>
+            <p class="crane-subtitle">Mobile Harbor Crane</p>
+            
+            <p class="description">
+                Las grúas móviles portuarias son grúas versátiles montadas sobre una base con ruedas neumáticas y estabilizadores, 
+                capaces de desplazarse por distintas áreas del puerto. A diferencia de las STS fijas, estas grúas no están 
+                ancladas a rieles, lo que les da movilidad total para operar en muelle u otros puntos según la necesidad. 
+                Se utilizan tanto para apoyar operaciones de contenedores en muelles sin grúas fijas, como para manipular 
+                carga general o a granel.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Capacidad de Carga</div>
+                    <div class="spec-value">50-100 toneladas (común)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Alcance de Pluma</div>
+                    <div class="spec-value">30-50 metros</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Giro</div>
+                    <div class="spec-value">360° con plumas giratorias tipo Gottwald</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Flexibilidad</div>
+                    <div class="spec-value">Diferentes aparejos: spreader, cuchara clam, gancho</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Contenedores, carga general (maquinaria, roll-on), granel sólido (minerales, carbón, cereales) mediante accesorios adecuados. Muy valoradas por su polivalencia.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Principalmente en muelles polivalentes o áreas donde no hay grúas pórtico fijas. Pueden desplazarse entre distintos sitios del muelle e incluso a patios cercanos.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Grúa móvil Liebherr</div>
+                    <div class="gallery-item">Operación con spreader</div>
+                    <div class="gallery-item">Manejo de carga general</div>
+                    <div class="gallery-item">Con cuchara para granel</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grúas para Granel -->
+    <div id="bulk" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas para Carga a Granel</h2>
+            <p class="crane-subtitle">Cucharas y Descargadores</p>
+            
+            <p class="description">
+                Este tipo de grúas está diseñado específicamente para la manipulación de materiales a granel (cargas sueltas no unitizadas). 
+                Incluye tanto grúas convencionales equipadas con cucharas de almeja (grabs) como sistemas dedicados de descargadores 
+                portuarios. Su función principal es transferir rápidamente materiales como minerales, carbón, cereales o fertilizantes 
+                desde las bodegas del buque hasta tolvas de recepción en tierra o viceversa.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Accesorios</div>
+                    <div class="spec-value">Cucharas mecánicas o hidráulicas de gran capacidad</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Eficiencia</div>
+                    <div class="spec-value">Decenas de toneladas de material por minuto</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Tipos</div>
+                    <div class="spec-value">Grúas pórtico o móviles adaptadas, descargadores de cangilones</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Características</div>
+                    <div class="spec-value">Sistemas de control de polvo, cabinas especializadas</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Graneles sólidos (mineral de hierro, carbón, granos, fertilizantes, cemento, etc.) y algunos graneles líquidos (usando tuberías o bombas).</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Muelles de granel o terminales especializadas. Las grúas pueden estar en el muelle (fijas en riel o móviles) o incluso montadas sobre barcazas dedicadas.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">Grúa con cuchara de almeja</div>
+                    <div class="gallery-item">Descargador de cangilones</div>
+                    <div class="gallery-item">Operación con mineral</div>
+                    <div class="gallery-item">Sistema de tolvas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RTG -->
+    <div id="rtg" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas Pórtico sobre Neumáticos</h2>
+            <p class="crane-subtitle">RTG - Rubber Tyred Gantry</p>
+            
+            <p class="description">
+                Las grúas pórtico sobre neumáticos (RTG) son grúas autopropulsadas de tipo pórtico montadas sobre ruedas de caucho. 
+                Se utilizan en los patios de almacenamiento de contenedores para apilar y organizar contenedores en bloques, 
+                optimizando el espacio disponible. No sirven para trabajar directamente sobre buques, sino para la logística 
+                interna de la terminal.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Altura de Apilado</div>
+                    <div class="spec-value">5-6 contenedores de altura (hasta 23m)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Alcance Horizontal</div>
+                    <div class="spec-value">5-8 contenedores de ancho más carril para camión</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Configuración</div>
+                    <div class="spec-value">Ruedas de caucho 8×4, estructura pórtico en "A"</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Propulsión</div>
+                    <div class="spec-value">Diésel-eléctrica, muchas con modo semi-automatizado</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Contenedores estándar (principalmente llenos, en patios de import/export). También contenedores cisterna o plataformas bajo las mismas dimensiones.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Patios de contenedores a la intemperie dentro de la terminal, desplazándose a lo largo de los bloques de almacenamiento. Operan entre el área de apilamiento y los camiones internos/externos.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">RTG en patio</div>
+                    <div class="gallery-item">Vista lateral operando</div>
+                    <div class="gallery-item">Sistema de neumáticos</div>
+                    <div class="gallery-item">Operación nocturna</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RMG -->
+    <div id="rmg" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas Pórtico sobre Rieles</h2>
+            <p class="crane-subtitle">RMG - Rail Mounted Gantry</p>
+            
+            <p class="description">
+                Las grúas pórtico sobre rieles (RMG) son muy similares funcionalmente a las RTG, pero en lugar de ruedas 
+                de goma circulan sobre rieles fijos en el patio. Son comunes en terminales de contenedores automatizadas 
+                o de alta densidad, incluyendo patios ferroviarios intermodales. Al estar sobre rieles, ofrecen movimientos 
+                más precisos y predecibles, integrándose fácilmente con sistemas automatizados.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Capacidad</div>
+                    <div class="spec-value">Mayor que RTG equivalente, aparejos dobles posibles</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Cobertura</div>
+                    <div class="spec-value">Anchos mayores, más filas de contenedores</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Alimentación</div>
+                    <div class="spec-value">Totalmente electrificadas (carriles conductor o cable)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Automatización</div>
+                    <div class="spec-value">Operación sin conductor desde centro de control</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Contenedores (llenos o vacíos), principalmente en patios de almacenamiento o terminales ferroviarias. Pueden manipular contenedores ISO de diversos tamaños con spreaders automatizados.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Patios de contenedores de gran escala o áreas intermodales donde la infraestructura de riel esté instalada. Suelen cubrir bloques enteros, desplazándose a lo largo de dichos bloques.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de Imágenes</h3>
+                <div class="gallery-container">
+                    <div class="gallery-item">RMG automatizada</div>
+                    <div class="gallery-item">Sistema de rieles</div>
+                    <div class="gallery-item">Patio intermodal</div>
+                    <div class="gallery-item">Centro de control</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reach Stacker -->
+    <div id="reach" class="crane-section">
+        <div class="crane-card">
+            <h2 class="crane-title">Grúas Apiladoras de Alcance</h2>
+            <p class="crane-subtitle">Reach Stackers</p>
+            
+            <p class="description">
+                Las grúas apiladoras de alcance (reach stackers) son vehículos de elevación utilizados para mover y apilar 
+                contenedores mediante un brazo telescópico. Estructuralmente se asemejan a un montacargas de gran tamaño 
+                con un brazo grúa extensible. Su función principal es la transferencia y apilado rápido de contenedores 
+                en patios o depósitos, con alta movilidad para distancias cortas.
+            </p>
+
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">Capacidad de Carga</div>
+                    <div class="spec-value">Hasta 45 toneladas (contenedor lleno de 40')</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Alcance</div>
+                    <div class="spec-value">Hasta 2-3 filas de profundidad en bloques</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Altura de Apilado</div>
+                    <div class="spec-value">4-5 contenedores en primera fila</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Maniobrabilidad</div>
+                    <div class="spec-value">Radio de giro compacto, ruedas neumáticas grandes</div>
+                </div>
+            </div>
+
+            <div class="cargo-types">
+                <div class="cargo-types-title">Tipos de Carga:</div>
+                <div>Contenedores (cargados o vacíos), contenedores cisterna y otros módulos ISO. Algunos modelos especiales pueden levantar tráilers.</div>
+            </div>
+
+            <div class="location-section">
+                <div class="location-title">📍 Ubicación Típica</div>
+                <div>Patios de contenedores en terminales medianas o pequeñas, depósitos interiores e incluso puertos fluviales o ferroviarios. Zonas de almacenamiento temporal.</div>
+            </div>
+
+            <div class="gallery">
+                <h3 class="gallery-title">Galería de
